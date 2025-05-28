@@ -1,0 +1,28 @@
+# azure-pipelines.yml
+trigger:
+  - main  # Se ejecuta al hacer push a la rama "main"
+
+pool:
+  vmImage: 'ubuntu-latest'  # Máquina virtual con Linux
+
+steps:
+  - task: TerraformInstaller@0
+    displayName: 'Instalar Terraform'
+    inputs:
+      terraformVersion: '1.5.0'  # Versión de Terraform
+
+  - task: TerraformCLI@0
+    displayName: 'Terraform Init'
+    inputs:
+      command: 'init'
+
+  - task: TerraformCLI@0
+    displayName: 'Terraform Plan'
+    inputs:
+      command: 'plan'
+
+  - task: TerraformCLI@0
+    displayName: 'Terraform Apply'
+    inputs:
+      command: 'apply'
+      commandOptions: '-auto-approve'  # Aplica sin confirmación manual
