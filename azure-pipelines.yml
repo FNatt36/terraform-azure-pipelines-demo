@@ -1,28 +1,36 @@
-# azure-pipelines.yml
 trigger:
-  - main  # Se ejecuta al hacer push a la rama "main"
+  - main
 
 pool:
-  vmImage: 'ubuntu-latest'  # Máquina virtual con Linux
+  vmImage: 'ubuntu-latest'
+
+variables:
+  azureServiceConnection: 'terraform-sp-devops'  # Cambia esto por tu Service Connection
 
 steps:
-  - task: TerraformInstaller@0
-    displayName: 'Instalar Terraform'
+  - task: UseTerraform@0
     inputs:
-      terraformVersion: '1.5.0'  # Versión de Terraform
+      terraformVersion: '1.5.0'
 
-  - task: TerraformCLI@0
+  - task: TerraformTaskV4@4
     displayName: 'Terraform Init'
     inputs:
+      provider: 'azurerm'
       command: 'init'
+      backendServiceArm: '$(azureServiceConnection)'
+      # Aquí puedes agregar configuración para backend si usas remoto (opcional)
 
-  - task: TerraformCLI@0
+  - task: TerraformTaskV4@4
     displayName: 'Terraform Plan'
     inputs:
+      provider: 'azurerm'
       command: 'plan'
+      environmentServiceNameAzureRM: '$(azureServiceConnection)'
 
-  - task: TerraformCLI@0
+  - task: TerraformTaskV4@4
     displayName: 'Terraform Apply'
     inputs:
+      provider: 'azurerm'
       command: 'apply'
-      commandOptions: '-auto-approve'  # Aplica sin confirmación manual
+      environmentServiceNameAzureRM: '$(azureServiceConnection)'
+      args: '-auto-approve'
