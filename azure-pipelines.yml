@@ -20,17 +20,17 @@ steps:
       backendServiceArm: '$(azureServiceConnection)'
       # Aquí puedes agregar configuración para backend si usas remoto (opcional)
 
-  - task: TerraformTaskV4@4
-    displayName: 'Terraform Plan'
-    inputs:
-      provider: 'azurerm'
-      command: 'plan'
-      environmentServiceNameAzureRM: '$(azureServiceConnection)'
+  # - task: TerraformTaskV4@4
+  #   displayName: 'Terraform Plan'
+  #   inputs:
+  #     provider: 'azurerm'
+  #     command: 'plan'
+  #     environmentServiceNameAzureRM: '$(azureServiceConnection)'
 
-  - task: TerraformTaskV4@4
-    displayName: 'Terraform Apply'
-    inputs:
-      provider: 'azurerm'
-      command: 'apply'
-      environmentServiceNameAzureRM: '$(azureServiceConnection)'
-      args: '-auto-approve'
+  # - task: TerraformTaskV4@4
+  #   displayName: 'Terraform Apply'
+  #   inputs:
+  #     provider: 'azurerm'
+  #     command: 'apply'
+  #     environmentServiceNameAzureRM: '$(azureServiceConnection)'
+  #     args: '-auto-approve'
