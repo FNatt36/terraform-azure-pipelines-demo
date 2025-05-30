@@ -8,9 +8,9 @@ variables:
   azureServiceConnection: 'terraform-sp-devops'  # Cambia esto por tu Service Connection
 
 steps:
-  - task: UseTerraform@0
-    inputs:
-      terraformVersion: '1.5.0'
+  #- task: UseTerraform@0 
+  #  inputs:
+  #    terraformVersion: '1.5.0'
 
   - task: TerraformTaskV4@4
     displayName: 'Terraform Init'
